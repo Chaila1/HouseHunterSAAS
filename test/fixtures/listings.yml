@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lister: MyString
+  address: MyString
+  beds: 1
+  baths: 1
+  catergory: MyString
+  price: 1
+
+two:
+  lister: MyString
+  address: MyString
+  beds: 1
+  baths: 1
+  catergory: MyString
+  price: 1
