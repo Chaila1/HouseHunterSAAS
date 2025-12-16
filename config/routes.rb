@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
- post "/register", to: "registers#create"
+  root "listings#index"
+  post "/register", to: "registers#create"
   post "/login", to: "sessions#create"
   resources :listings
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
