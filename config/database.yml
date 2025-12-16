@@ -5,8 +5,8 @@
 #   gem "sqlite3"
 #
 default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  adapter: postgresql
+  url: <%= ENV['postgresql://househunter_user:XSFazq53IVnmBzy7w2kSMPjSl0WefKqB@dpg-d50pt7q4d50c73es4vd0-a/househunter'] %>
   timeout: 5000
 
 development:
