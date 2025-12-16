@@ -7,6 +7,10 @@
 default: &default
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV['PG_HOST'] %>
+  port: <%= ENV['PG_PORT'] || 5432 %>
+  username: <%= ENV['PG_USERNAME'] %>
+  password: <%= ENV['PG_PASSWORD'] %>
  
 
 development:
@@ -30,15 +34,14 @@ test:
 # Store production database in the storage/ directory, which by default
 # is mounted as a persistent Docker volume in config/deploy.yml.
 production:
-  <<: *default
-  adapter: postgresql
-  host: <%= ENV['PG_HOST'] %>
-  port: <%= ENV['PG_PORT'] || 5432 %>
-  database: <%= ENV['PG_DATABASE'] %>
-  username: <%= ENV['PG_USERNAME'] %>
-  password: <%= ENV['PG_PASSWORD'] %>
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  primary:
+    <<: *default
+    database: <%= ENV['PG_DATABASE'] %>
 
+  queue:
+    <<: *default
+    database: <%= ENV['PG_DATABASE'] %>
+    
   connects_to:
     database:
       writing: primary
