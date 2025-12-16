@@ -10,8 +10,8 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "correct login" do
-    post "/login", params:{
-      user:{
+    post "/login", params: {
+      user: {
         username: "Shaniqua",
         password: "Password123"
       }
@@ -23,8 +23,8 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "incorrect login" do
-    post "/login", params:{
-      user:{
+    post "/login", params: {
+      user: {
         username: "Shaniqua",
         password: "wrongpassword"
       }

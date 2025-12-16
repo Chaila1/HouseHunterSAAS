@@ -1,4 +1,4 @@
-require 'jwt'
+require "jwt"
 
 class SessionsController < ApplicationController
   KEY = Rails.application.secret_key_base
@@ -12,10 +12,9 @@ class SessionsController < ApplicationController
     if user.authenticate(password)
       payload = { user_id: user.id, exp: 2.hours.from_now.to_i }
       token = JWT.encode(payload, KEY, "HS256")
-      render json: { message: "Login successful", user: user.as_json(only: [:id, :username, :email]), token: token }, status: :ok
+      render json: { message: "Login successful", user: user.as_json(only: [ :id, :username, :email ]), token: token }, status: :ok
     else
       render json: { error: "Incorrect credentials" }, status: :unauthorized
     end
   end
 end
-

@@ -8,9 +8,9 @@ class ListingsControllerTest < ActionDispatch::IntegrationTest
         email: "raquelle@ruby.com",
         password: "Password123"
     )
-  
 
-  payload = { user_id: @user.id}
+
+  payload = { user_id: @user.id }
   @token = JWT.encode(payload, Rails.application.secret_key_base, "HS256")
 
   @listing = Listing.create!(
@@ -39,18 +39,18 @@ class ListingsControllerTest < ActionDispatch::IntegrationTest
           beds: 3,
           baths: 2,
           catergory: "Apartment",
-          price: 5390257,
+          price: 5390257
         }
       },
-      headers: { Authorization: "Bearer #{@token}"}
+      headers: { Authorization: "Bearer #{@token}" }
 
       assert_response :success
     end
 
   test "should update listing" do
     patch "/listings/#{@listing.id}",
-    params: {listing: {price: 300000}},
-    headers: { Authorization: "Bearer #{@token}"}
+    params: { listing: { price: 300000 } },
+    headers: { Authorization: "Bearer #{@token}" }
 
     assert_response :success
     assert_equal 300000, @listing.reload.price
@@ -59,7 +59,7 @@ class ListingsControllerTest < ActionDispatch::IntegrationTest
   test "should destroy listing" do
     assert_difference("Listing.count", -1) do
       delete "/listings/#{@listing.id}",
-      headers: { Authorization: "Bearer #{@token}"}
+      headers: { Authorization: "Bearer #{@token}" }
     end
 
     assert_response :no_content

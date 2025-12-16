@@ -1,7 +1,7 @@
 require "test_helper"
 
 class ListingTest < ActiveSupport::TestCase
-def setup 
+def setup
   @user = User.create!(
     username: "Jerome",
     email: "jerome@ruby.com",
@@ -24,7 +24,7 @@ test "valid lisitng should be saved" do
 end
 
 test "lisitngs should contain valid credentials" do
-  @listing.lister = nil 
+  @listing.lister = nil
   assert_not @listing.valid?
 end
 

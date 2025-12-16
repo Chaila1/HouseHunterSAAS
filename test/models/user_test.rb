@@ -35,4 +35,3 @@ class UserTest < ActiveSupport::TestCase
     assert @user.authenticate("password123")
   end
 end
-

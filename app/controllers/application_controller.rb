@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery unless: -> {request.format.json? }
+  protect_from_forgery unless: -> { request.format.json? }
 
   def current_user
     @current_user
@@ -23,4 +23,3 @@ class ApplicationController < ActionController::Base
     end
   end
 end
-    

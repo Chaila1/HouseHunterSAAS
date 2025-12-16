@@ -3,7 +3,7 @@ require "test_helper"
 class RegistersControllerTest < ActionDispatch::IntegrationTest
   test "create a user" do
     post "/register", params: {
-      user:{
+      user: {
         username: "Peter",
         email: "peter@ruby.com",
         password: "Password123"
@@ -17,9 +17,9 @@ class RegistersControllerTest < ActionDispatch::IntegrationTest
     assert user.authenticate("Password123")
   end
 
-  test "input fields must be filled" do 
+  test "input fields must be filled" do
     post "/register", params: {
-      user:{
+      user: {
         username: "",
         email: "",
         password: ""
