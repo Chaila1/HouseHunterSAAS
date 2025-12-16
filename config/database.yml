@@ -5,6 +5,7 @@
 #   gem "sqlite3"
 #
 default: &default
+  adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: <%= ENV['PG_HOST'] %>
@@ -17,6 +18,7 @@ development:
   <<: *default
   adapter: sqlite3
   database: db/development.sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 
@@ -27,6 +29,7 @@ test:
   <<: *default
   adapter: sqlite3
   database: db/test.sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 
@@ -41,7 +44,7 @@ production:
   queue:
     <<: *default
     database: <%= ENV['PG_DATABASE'] %>
-    
+
   connects_to:
-    database:
-      writing: primary
+    writing: primary
+    reading: primary
