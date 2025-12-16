@@ -1,48 +1,67 @@
 require "test_helper"
+require "jwt"
 
 class ListingsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @listing = listings(:one)
+  def setup
+    @user = User.create!(
+      username: "Raquelle",
+        email: "raquelle@ruby.com",
+        password: "Password123"
+    )
+  
+
+  payload = { user_id: @user.id}
+  @token = JWT.encode(payload, Rails.application.secret_key_base, "HS256")
+
+  @listing = Listing.create!(
+    lister: "Raquelle Salazar",
+    address: "54 Grange Street, Pinewview, Ballymun",
+    beds: 3,
+    baths: 2,
+    catergory: "Apartment",
+    price: 5390257,
+    user: @user
+  )
   end
 
-  test "should get index" do
-    get listings_url
-    assert_response :success
-  end
 
-  test "should get new" do
-    get new_listing_url
+  test "should get the index" do
+    get "/listings"
     assert_response :success
   end
 
   test "should create listing" do
-    assert_difference("Listing.count") do
-      post listings_url, params: { listing: { address: @listing.address, baths: @listing.baths, beds: @listing.beds, catergory: @listing.catergory, lister: @listing.lister, price: @listing.price } }
+      post "/listings",
+      params: {
+        listing: {
+          lister: "test",
+          address: "54 Mule lane",
+          beds: 3,
+          baths: 2,
+          catergory: "Apartment",
+          price: 5390257,
+        }
+      },
+      headers: { Authorization: "Bearer #{@token}"}
+
+      assert_response :success
     end
 
-    assert_redirected_to listing_url(Listing.last)
-  end
-
-  test "should show listing" do
-    get listing_url(@listing)
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_listing_url(@listing)
-    assert_response :success
-  end
-
   test "should update listing" do
-    patch listing_url(@listing), params: { listing: { address: @listing.address, baths: @listing.baths, beds: @listing.beds, catergory: @listing.catergory, lister: @listing.lister, price: @listing.price } }
-    assert_redirected_to listing_url(@listing)
+    patch "/listings/#{@listing.id}",
+    params: {listing: {price: 300000}},
+    headers: { Authorization: "Bearer #{@token}"}
+
+    assert_response :success
+    assert_equal 300000, @listing.reload.price
   end
 
   test "should destroy listing" do
     assert_difference("Listing.count", -1) do
-      delete listing_url(@listing)
+      delete "/listings/#{@listing.id}",
+      headers: { Authorization: "Bearer #{@token}"}
     end
 
-    assert_redirected_to listings_url
+    assert_response :no_content
   end
 end

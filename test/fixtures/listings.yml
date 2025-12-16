@@ -7,6 +7,7 @@ one:
   baths: 1
   catergory: MyString
   price: 1
+  user: one
 
 two:
   lister: MyString
@@ -15,3 +16,4 @@ two:
   baths: 1
   catergory: MyString
   price: 1
+  user: two
