@@ -30,6 +30,10 @@ production:
     <<: *default
     database: <%= ENV['PG_DATABASE'] %>
 
+  cache:
+    <<: *default
+    database: <%= ENV['PG_DATABASE'] %>
+
   connects_to:
     writing: primary
     reading: primary
